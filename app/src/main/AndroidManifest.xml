@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.franciscojavier2.lapitchat">
+
+    <!-- PERMISOS PARA LEER Y ESCRIBIR DATOS Y PODER UTILIZAR LA LIBRERÍA AÑADIDA EN LA APP DE RECORTAR IMÁGENES -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name=".LapitChat" > <!-- Es necesario indicarle como name la clase LapitChat
+            ya que ésto hace que la clase sea instanciada antes que cualquier componente
+            de la aplicación. Lo que estoy haciendo es declarar la clase LapitChat como la clase de la App-->
+
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".StartActivity"
+            />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".StartActivity"
+            />
+
+        <activity android:name=".LoginActivity"
+            />
+
+        <activity android:name=".SettingsActivity"
+            />
+
+        <activity
+            android:name=".StatusActivity"
+            android:parentActivityName=".SettingsActivity"
+            />
+        <!--
+          Poner un parentActivity provoca que al pulsar el botón
+                                                                                de atrás, regresemos a la actividad padre.
+        -->
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" /> <!-- Necesario para usar la librería de recortar imágenes -->
+
+        <activity
+            android:name=".UsersActivity"
+            android:parentActivityName=".MainActivity"></activity>
+
+        <activity android:name=".ProfileActivity">
+            <intent-filter>
+                <action android:name="lapitchat_TARGET_NOTIFICATION"></action>     <!-- Esta acción sirve para meterla en node.js
+                                de forma q cuando un user reciba un notificación, pueda iniciar desde un Intent situado en la clase
+                                FirebaseMessagingService la clase ProfileActivity ya que he colocacdo un clickaction el el js.-->
+                <category android:name="android.intent.category.DEFAULT"></category>   <!-- Tb es necesario incluir este category-->
+            </intent-filter>
+        </activity>
+
+
+        <service
+            android:name=".FirebaseMessagingService">  <!-- Servicio necesario para usar la librería Firebase Cloud Messaging -->
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

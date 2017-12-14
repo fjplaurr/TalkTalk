@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -81,6 +83,14 @@ public class UsersActivity extends AppCompatActivity {
 
         mUsersList.setAdapter(firebaseRecyclerAdapter);
 
+        //Código para el valor online de la BD.
+        mUsersDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("online").setValue(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mUsersDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("online").setValue(false);
     }
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder{  //Creo una clase que herede de RecyclerView.ViewHolder.
@@ -106,4 +116,6 @@ public class UsersActivity extends AppCompatActivity {
            Picasso.with(ctx).load(thumb_image).placeholder(R.drawable.default_avatar).into(userImageView);
         }
     }
+
+
 }

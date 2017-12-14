@@ -58,7 +58,10 @@ import id.zelory.compressor.Compressor;
      //ProgressDialog
      ProgressDialog mProgressDialog;
 
-    @Override
+     private FirebaseAuth mAuth;
+
+
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
@@ -84,6 +87,8 @@ import id.zelory.compressor.Compressor;
             //lo que hay en la web o lo que hay en el smartphone en memoria. Para ello, hay que usarlo en
             //combinación con setPersistenceEnabled (Utilizado en la clase LapitChat) ya que éste lo que
             //permite es poder trabajar offline.
+
+         mAuth = FirebaseAuth.getInstance();
 
         //Agrego un listener para establecer los valores en el layout
         mUserDatabase.addValueEventListener(new ValueEventListener() {
@@ -228,6 +233,18 @@ import id.zelory.compressor.Compressor;
                  Exception error = result.getError();
              }
          }
+     }
+
+     //Código para actualizar la clave online en la BD.
+     @Override
+     public void onStart() {
+         super.onStart();
+         mUserDatabase.child("online").setValue(true);
+     }
+     //Código para actualizar la clave online en la BD.
+     protected void onPause() {
+         super.onPause();
+         mUserDatabase.child("online").setValue(false);
      }
 
 

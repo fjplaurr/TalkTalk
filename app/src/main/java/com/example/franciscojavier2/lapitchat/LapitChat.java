@@ -46,13 +46,14 @@ public class LapitChat extends Application {
 
         if(mUser!=null){  //if para evitar que siga el código cuando no hay un user, es decir, cuando
                     //se ejecuta la App por primera vez.
-            mUserDatabase=FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+            mUserDatabase=FirebaseDatabase.getInstance().getReference().child("Users")
+                    .child(mAuth.getCurrentUser().getUid());
             mUserDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot != null) {
                         mUserDatabase.child("online").onDisconnect().setValue(false);
-                        mUserDatabase.child("online").setValue(true);
+                        //mUserDatabase.child("online").setValue(true);
                     }
                 }
 

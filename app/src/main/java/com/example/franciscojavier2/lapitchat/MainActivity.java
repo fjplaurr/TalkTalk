@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private SectionsPagerAdapter mSectionsPagerAdapter; //Necesito una clase adaptadora para el mViewPager que herede de FragmentPagerAdapter.
 
+    private DatabaseReference mUserRef;
     private TabLayout mTabLayout;
 
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Lapit Chat");
 
         mAuth = FirebaseAuth.getInstance();
+        mUserRef= FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
 
 
@@ -48,15 +51,23 @@ public class MainActivity extends AppCompatActivity {
                 //y aparece la barrita horizontal que indica en qué Fragment te encuentras y además el propio TabLayout tiene funcionalidad para cambiar de un Fragment a otro.
     }
 
+
+    //Código para actualizar la clave online en la BD.
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-
         FirebaseUser currentUser=mAuth.getCurrentUser();
+        System.out.println("------------------------------------"+currentUser.toString());
         if(currentUser==null){
             sendToStart();//Para que el user no pueda volver al Main desde el StartActivity si pulsa el botón atrás.
+        }else{
+            mUserRef.child("online").setValue(true);
         }
+    }
+    //Código para actualizar la clave online en la BD.
+    protected void onPause() {
+        super.onPause();
+        mUserRef.child("online").setValue(false);
     }
 
 

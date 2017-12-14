@@ -315,5 +315,18 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    //Código para actualizar la clave online en la BD.
+    @Override
+    public void onStart() {
+        super.onStart();
+        mUserRef.child("online").setValue(true);
+    }
+    //Código para actualizar la clave online en la BD.
+    protected void onPause() {
+        super.onPause();
+        mUserRef.child("online").setValue(false);
+    }
+
+
 
 }

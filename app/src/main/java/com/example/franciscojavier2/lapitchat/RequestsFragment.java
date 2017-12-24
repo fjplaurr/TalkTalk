@@ -1,8 +1,8 @@
 package com.example.franciscojavier2.lapitchat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +31,7 @@ public class RequestsFragment extends Fragment {
     private View mMainView;
     private RecyclerView mRequestList;
     private FirebaseAuth mAuth;
-    private DatabaseReference mRequestsDatabase,mRootRef;
+    private DatabaseReference mFriend_reqDatabase,mRootRef;
     private String mCurrent_user_id;
 
     public RequestsFragment() {
@@ -52,61 +52,47 @@ public class RequestsFragment extends Fragment {
         mRootRef=FirebaseDatabase.getInstance().getReference();
         mAuth=FirebaseAuth.getInstance();
         mCurrent_user_id=mAuth.getCurrentUser().getUid();
-        mRequestsDatabase= FirebaseDatabase.getInstance().getReference().child("notifications").child(mCurrent_user_id);
+        mFriend_reqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req").child(mCurrent_user_id);
 
         return mMainView;
     }
 
     public void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<Requests,RequestsViewHolder> requestsRecyclerViewAdapter =
-                new FirebaseRecyclerAdapter<Requests, RequestsFragment.RequestsViewHolder>(
-                        Requests.class,
+        FirebaseRecyclerAdapter<Friend_req,RequestsViewHolder> requestsRecyclerViewAdapter =
+                new FirebaseRecyclerAdapter<Friend_req, RequestsFragment.RequestsViewHolder>(
+                        Friend_req.class,
                         R.layout.users_single_layout,  //Reutilizado este layout.
                         RequestsFragment.RequestsViewHolder.class,
-                        mRequestsDatabase) {
+                        mFriend_reqDatabase) {
 
             @Override
             protected void populateViewHolder(final RequestsFragment.RequestsViewHolder requestsViewHolder,
-                                              final Requests requests, final int position) {
+                                              final Friend_req requests, final int position) {
 
-                getRef(position).child("from").addValueEventListener(new ValueEventListener() {
+                final String list_user_id=getRef(position).getKey().toString();
+                DatabaseReference DataBaseUser=mRootRef.child("Users").child(list_user_id);
+
+                System.out.println("---------------"+list_user_id);
+
+                DataBaseUser.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        final String list_user_id=dataSnapshot.getValue().toString();
-                        System.out.println("------------------------------"+list_user_id);
-                        DatabaseReference DataBaseUser=mRootRef.child("Users").child(list_user_id);
-                        DataBaseUser.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                requestsViewHolder.setFrom(dataSnapshot.child("name").getValue().toString());
-                                requestsViewHolder.setThumbImage(dataSnapshot.child("thumb_image").getValue().toString(),getContext());
-                                //requestsViewHolder.setDate(getRef(position).child("date"));
-                                getRef(position).child("date").addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        requestsViewHolder.setDate(dataSnapshot.getValue().toString());
-                                    }
-                                    @Override public void onCancelled(DatabaseError databaseError) {}
-                                });
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        requestsViewHolder.setFrom(dataSnapshot.child("name").getValue().toString());
+                        requestsViewHolder.setThumbImage(dataSnapshot.child("thumb_image").getValue().toString(),getContext());
 
                     }
+                    @Override public void onCancelled(DatabaseError databaseError) {}
                 });
 
-
-
-
+                requestsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent profileIntent=new Intent(getContext(),ProfileActivity.class);
+                        profileIntent.putExtra("user_id",list_user_id);
+                        startActivity(profileIntent);
+                    }
+                });
             }
         };
         mRequestList.setAdapter(requestsRecyclerViewAdapter);

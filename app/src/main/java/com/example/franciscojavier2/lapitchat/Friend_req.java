@@ -4,13 +4,13 @@ package com.example.franciscojavier2.lapitchat;
  * Created by FranciscoJavier2 on 23/12/2017.
  */
 
-public class Requests {
+public class Friend_req {
 
     public String from;
 
-    public Requests(){}
+    public Friend_req(){}
 
-    public Requests(String from){
+    public Friend_req(String from){
         this.from=from;
     }
 

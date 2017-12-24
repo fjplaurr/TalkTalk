@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -90,7 +91,7 @@ public class UsersActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mUsersDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("online").setValue(false);
+        mUsersDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("online").setValue(ServerValue.TIMESTAMP);
     }
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder{  //Creo una clase que herede de RecyclerView.ViewHolder.

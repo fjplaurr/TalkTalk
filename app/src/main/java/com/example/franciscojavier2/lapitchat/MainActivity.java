@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,15 +31,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mToolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Lapit Chat");
 
         mAuth = FirebaseAuth.getInstance();
-        mUserRef= FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
-
-
+        if(mAuth.getCurrentUser()!=null){
+            mUserRef= FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+        }
 
         //ViewPager y adaptador
         mViewPager=(ViewPager)findViewById(R.id.main_tabPager);
@@ -57,17 +57,19 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser=mAuth.getCurrentUser();
-        System.out.println("------------------------------------"+currentUser.toString());
         if(currentUser==null){
             sendToStart();//Para que el user no pueda volver al Main desde el StartActivity si pulsa el botón atrás.
         }else{
-            mUserRef.child("online").setValue(true);
+            mUserRef.child("online").setValue("true");
         }
     }
     //Código para actualizar la clave online en la BD.
     protected void onPause() {
         super.onPause();
-        mUserRef.child("online").setValue(false);
+        FirebaseUser currentUser=mAuth.getCurrentUser();
+        if(currentUser!=null){
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
+        }
     }
 
 
@@ -88,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         if(item.getItemId()==R.id.main_logout_btn){   //Al pulsar en main_logout_btn, haremos sign out y eso nos llevará a la StartActivity.
             FirebaseAuth.getInstance().signOut();
+
+                //Fuerzo a tomar el valor TIMESTAMP ya que si no seguiría estando online al ejecutarse onPause;
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
             sendToStart();
         }
 

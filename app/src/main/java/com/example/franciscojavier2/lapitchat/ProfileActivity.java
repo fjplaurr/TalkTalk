@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.text.DateFormat;
@@ -171,6 +172,8 @@ public class ProfileActivity extends AppCompatActivity {
                                         HashMap<String,String>notificationData=new HashMap<>();
                                         notificationData.put("from",mCurrentUser.getUid());;
                                         notificationData.put("type","request");
+                                        final String currentDate= DateFormat.getDateTimeInstance().format(new Date());
+                                        notificationData.put("date",currentDate);
 
                                         mNotificationDatabase.child(user_id).push().setValue(notificationData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     //push() lo que hace es generar una clave única aleatoria para la notificación.
@@ -324,7 +327,7 @@ public class ProfileActivity extends AppCompatActivity {
     //Código para actualizar la clave online en la BD.
     protected void onPause() {
         super.onPause();
-        mUserRef.child("online").setValue(false);
+        mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
     }
 
 

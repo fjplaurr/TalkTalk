@@ -42,9 +42,11 @@ dependencies {
     compile 'id.zelory:compressor:2.0.0'  //Librería compresor de imágenes y videos
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     //Librería okhttp necesaria para trabajar con las imagenes de Picasso offline.
-    compile 'com.google.firebase:firebase-messaging:11.0.4'  //Librería para Firebase cloud messaging
+    compile 'com.google.firebase:firebase-messaging:11.0.4'
+    //Librería para Firebase cloud messaging
 
 }
+
 
 
 

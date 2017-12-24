@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 class SectionsPagerAdapter extends FragmentPagerAdapter{
 
-
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -38,7 +37,6 @@ class SectionsPagerAdapter extends FragmentPagerAdapter{
     }
 
     public CharSequence getPageTitle(int position){
-
         switch (position){
             case 0:
                 return "REQUESTS";
@@ -50,4 +48,5 @@ class SectionsPagerAdapter extends FragmentPagerAdapter{
                 return null;
         }
     }
+
 }

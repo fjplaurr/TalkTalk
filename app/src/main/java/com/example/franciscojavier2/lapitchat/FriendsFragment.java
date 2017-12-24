@@ -1,7 +1,9 @@
 package com.example.franciscojavier2.lapitchat;
 
-
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class FriendsFragment extends Fragment {
 
     private RecyclerView mFriendList;
@@ -34,15 +37,12 @@ public class FriendsFragment extends Fragment {
     private FirebaseAuth mAuth;
     private String mCurrent_user_id;
 
-
     public FriendsFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         mMainView= inflater.inflate(R.layout.fragment_friends, container, false);
 
@@ -60,40 +60,70 @@ public class FriendsFragment extends Fragment {
         mUsersDatabase.keepSynced(true);
 
         return mMainView;
-
     }
 
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<Friends, FriendsViewHolder> friendsRecyclerViewAdapter = new FirebaseRecyclerAdapter<Friends, FriendsFragment.FriendsViewHolder>(
+        FirebaseRecyclerAdapter<Friends, FriendsViewHolder> friendsRecyclerViewAdapter =
+                new FirebaseRecyclerAdapter<Friends, FriendsFragment.FriendsViewHolder>(
                 Friends.class,
                 R.layout.users_single_layout,  //Reutilizado este layout.
                 FriendsFragment.FriendsViewHolder.class,
                 mFriendsDatabase) {
             @Override
-            protected void populateViewHolder(final FriendsFragment.FriendsViewHolder friendsViewHolder, Friends friends, int position) {
+            protected void populateViewHolder(final FriendsFragment.FriendsViewHolder friendsViewHolder,
+                                              Friends friends, int position) {
 
                 friendsViewHolder.setDate(friends.getDate());
 
-                String list_user_id=getRef(position).getKey();
+                final String list_user_id=getRef(position).getKey();
 
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String userName=dataSnapshot.child("name").getValue().toString();
-                        String userThumb=dataSnapshot.child("thumb_image").getValue().toString();
+                        final String userName=dataSnapshot.child("name").getValue().toString();
+                        final String userThumb=dataSnapshot.child("thumb_image").getValue().toString();
 
                         if(dataSnapshot.hasChild("online")){  //Le pongo esta condición para evitar que mire
                                         //usuarios que no tienen la clave online en la BD. Lo cierto es que ésto
                                         //nunca debería pasar porque los usuarios al registrarse ya se les asigna
                                         //un valor para la clave online en el MainActivity.class.
-                            Boolean userOnline=(boolean)dataSnapshot.child("online").getValue();
+                            String userOnline=dataSnapshot.child("online").getValue().toString();
                             friendsViewHolder.setUserOnline(userOnline);
                         }
 
                         friendsViewHolder.setName(userName);
                         friendsViewHolder.setThumbImage(userThumb,getContext());
+
+                        friendsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                CharSequence options[]=new CharSequence[]{"Open Profile","Send message"};
+                                final AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+                                builder.setTitle("Select Options");
+                                builder.setItems(options, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //Evento click para cada item.
+                                        if(i==0){
+                                            Intent profileIntent=new Intent(getContext(),ProfileActivity.class);
+                                            profileIntent.putExtra("user_id",list_user_id);
+                                            startActivity(profileIntent);
+                                        }
+                                        if(i==1){
+                                            Intent chatIntent=new Intent(getContext(),ChatActivity.class);
+                                            chatIntent.putExtra("user_id",list_user_id);
+                                            chatIntent.putExtra("user_name",userName);
+                                            chatIntent.putExtra("user_image",userThumb);
+
+                                            startActivity(chatIntent);
+                                        }
+                                    }
+                                });
+                                builder.show();
+                            }
+                        });
                     }
 
                     @Override
@@ -135,9 +165,9 @@ public class FriendsFragment extends Fragment {
 
         }
 
-        public void setUserOnline(boolean online_status){
+        public void setUserOnline(String online_status){
             ImageView userOnlineView=(ImageView)mView.findViewById(R.id.user_sing_online_icon);
-            if(online_status==true){
+            if(online_status.equals("true")){
                 userOnlineView.setVisibility(View.VISIBLE);
             }else{
                 userOnlineView.setVisibility(View.INVISIBLE);

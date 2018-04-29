@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.franciscojavier2.lapitchat"
+        applicationId "com.example.franciscojavier2.TalkTalk"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -38,28 +38,16 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 //Librería añadida para establecer fácilmente una imágen de perfil de usuario.
     compile 'com.firebaseui:firebase-ui-database:2.3.0'
-    //Librería para FirebaseUI para poder utilizar el RecyclerView que muestra una lsita con todos los usuarios en la clase UsersActivity.
+    //Librería para FirebaseUI para poder utilizar el RecyclerView que muestra una lsita con todos los usuarios en la clase ActivityUsers.
     compile 'id.zelory:compressor:2.0.0'  //Librería compresor de imágenes y videos
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     //Librería okhttp necesaria para trabajar con las imagenes de Picasso offline.
     compile 'com.google.firebase:firebase-messaging:11.0.4'
     //Librería para Firebase cloud messaging
 
+    //  compile 'com.google.firebase:firebase-core:12.0.1'
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 apply plugin: 'com.google.gms.google-services'

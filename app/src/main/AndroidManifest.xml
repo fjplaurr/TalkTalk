@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.franciscojavier2.lapitchat">
+    package="com.example.franciscojavier2.TalkTalk">
 
     <!-- PERMISOS PARA LEER Y ESCRIBIR DATOS Y PODER UTILIZAR LA LIBRERÍA AÑADIDA EN LA APP DE RECORTAR IMÁGENES -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".LapitChat"
+        android:name="com.example.franciscojavier2.TalkTalk.FirstClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,58 +16,58 @@
         android:theme="@style/AppTheme">
 
         <!--
-      Es necesario indicarle como name la clase LapitChat
+      Es necesario indicarle como name la clFirstClassChat
             ya que ésto hace que la clase sea instanciada antes que cualquier componente
-            de la aplicación. Lo que estoy haciendo es declarar la clase LapitChat como la clase de la App
+            de la aplicación. Lo que estoy haciendo es declarar la clFirstClassChat como la clase de la App
         -->
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.franciscojavier2.TalkTalk.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartActivity" />
+        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivityStart" />
         <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".StartActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SettingsActivity" />
+            android:name="com.example.franciscojavier2.TalkTalk.ActivitySignUp"
+            android:parentActivityName="com.example.franciscojavier2.TalkTalk.ActivityStart" />
+        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivityLogIn" />
+        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivitySettings" />
         <activity
-            android:name=".StatusActivity"
-            android:parentActivityName=".SettingsActivity" />
+            android:name="com.example.franciscojavier2.TalkTalk.ActivityStatus"
+            android:parentActivityName="com.example.franciscojavier2.TalkTalk.ActivitySettings" />
         <!--
           Poner un parentActivity provoca que al pulsar el botón
-                                                                                de atrás, regresemos a la actividad padre.
+          de atrás, regresemos a la actividad padre.
         -->
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- Necesario para usar la librería de recortar imágenes -->
 
         <activity
-            android:name=".UsersActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".ProfileActivity">
+            android:name="com.example.franciscojavier2.TalkTalk.ActivityUsers"
+            android:parentActivityName="com.example.franciscojavier2.TalkTalk.MainActivity" />
+        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivityProfile">
             <intent-filter>
-                <action android:name="lapitchat_TARGET_NOTIFICATION" />
+                <action android:name="TalkTalk_notify" />
                 <!--
           Esta acción sirve para meterla en node.js
                                 de forma q cuando un user reciba un notificación, pueda iniciar desde un Intent situado en la clase
-                                FirebaseMessagingService la clase ProfileActivity ya que he colocacdo un clickaction el el js.
+                                FirebaseMessagingService la clActivityProfilevity ya que he colocacdo un clickaction el el js.
                 -->
                 <category android:name="android.intent.category.DEFAULT" /> <!-- Tb es necesario incluir este category -->
             </intent-filter>
         </activity>
 
-        <service android:name=".FirebaseMessagingService"> <!-- Servicio necesario para usar la librería Firebase Cloud Messaging -->
+        <service android:name="com.example.franciscojavier2.TalkTalk.FirebaseMessagingService"> <!-- Servicio necesario para usar la librería Firebase Cloud Messaging -->
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".ChatActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivityConversation"
+            android:parentActivityName="com.example.franciscojavier2.TalkTalk.MainActivity">
         </activity>
     </application>
 

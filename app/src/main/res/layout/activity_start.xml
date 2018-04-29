@@ -5,30 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.franciscojavier2.lapitchat.StartActivity">
+    tools:context="com.example.franciscojavier2.TalkTalk.ActivityStart">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Lapit Chat APP"
+        android:text="@string/Welcome"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.564" />
+        app:layout_constraintVertical_bias="0.384" />
 
     <Button
         android:id="@+id/start_login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:background="@color/colorAccent"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
-        android:text="ALREADY HAVE AN ACCOUNT"
+        android:text="I ALREADY HAVE AN ACCOUNT"
         android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -39,11 +39,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@android:color/white"
+        android:background="@color/colorAccent"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
-        android:text="@string/need_a_new_account"
-        android:textColor="@color/colorPrimary"
+        android:text="@string/newAccount"
+        android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_login_btn" />

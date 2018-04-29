@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_google_signin_btn_text_light_pressed"
-    tools:context="com.example.franciscojavier2.lapitchat.ProfileActivity">
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.example.franciscojavier2.TalkTalk.ActivityProfile">
 
     <ImageView
         android:id="@+id/profile_image"
@@ -37,9 +37,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text="Curent User Status"
-        android:textSize="12sp"
         android:textColor="@android:color/white"
-        />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/profile_totalFriends"
@@ -49,9 +48,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
         android:text="Total Friends"
-        android:textSize="12sp"
         android:textColor="@android:color/white"
-        />
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/profile_send_req_btn"

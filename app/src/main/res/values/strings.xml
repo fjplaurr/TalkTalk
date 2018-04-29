@@ -1,12 +1,11 @@
 <resources>
-    <string name="app_name">LapitChat</string>
-    <string name="need_a_new_account">NEED A NEW ACCOUNT?</string>
+    <string name="app_name">TalkTalk</string>
+    <string name="newAccount">NEED A NEW ACCOUNT? SIGN UP!</string>
     <string name="display_name">Display Name</string>
-    <string name="log_out">Log Out</string>
+    <string name="LogOut">Log Out</string>
     <string name="account_settings">Account Settings</string>
     <string name="all_users">All Users</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hi_there_i_m_using_lapit_chat_app">Hi there, I\'m using Lapit Chat App</string>
+    <string name="FragmentRandomSentence">Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</string>
+    <string name="DefaultStatus">Hi everyone! Using TalkTalk! :)</string>
+    <string name="Welcome">Welcome to TalkTalk!</string>
 </resources>

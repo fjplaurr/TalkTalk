@@ -25,9 +25,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class FragmentFriendshipReq extends Fragment {
-
-    private View mMainView;
-    private RecyclerView mRequestList;
+    private View vista;
+    private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
     private DatabaseReference mFriendreqDatabase,mRootRef;
     private String mCurrent_user_id;
@@ -38,12 +37,12 @@ public class FragmentFriendshipReq extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mMainView= inflater.inflate(R.layout.fragment_friendship_req, container, false);
+        vista = inflater.inflate(R.layout.fragment_friendship_req, container, false);
 
         //RecyclerView
-        mRequestList=(RecyclerView)mMainView.findViewById(R.id.requests_list);
-        mRequestList.setHasFixedSize(true);
-        mRequestList.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView =(RecyclerView) vista.findViewById(R.id.requests_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //Firebase
         mRootRef=FirebaseDatabase.getInstance().getReference();
@@ -51,7 +50,7 @@ public class FragmentFriendshipReq extends Fragment {
         mCurrent_user_id=mAuth.getCurrentUser().getUid();
         mFriendreqDatabase = FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(mCurrent_user_id);
 
-        return mMainView;
+        return vista;
     }
 
     public void onStart() {
@@ -100,7 +99,7 @@ public class FragmentFriendshipReq extends Fragment {
                 });
             }
         };
-        mRequestList.setAdapter(requestsRecyclerViewAdapter);
+        recyclerView.setAdapter(requestsRecyclerViewAdapter);
     }
 
     public static class RequestsViewHolder extends RecyclerView.ViewHolder{
@@ -122,8 +121,8 @@ public class FragmentFriendshipReq extends Fragment {
         }
 
         public void setThumbImage(String thumb_image, Context ctx){
-            CircleImageView userImageView=(CircleImageView)mView.findViewById(R.id.user_single_image);
-            Picasso.with(ctx).load(thumb_image).placeholder(R.drawable.default_avatar).into(userImageView);
+            CircleImageView userPicture=(CircleImageView)mView.findViewById(R.id.user_single_image);
+            Picasso.with(ctx).load(thumb_image).placeholder(R.drawable.default_avatar).into(userPicture);
         }
     }
 

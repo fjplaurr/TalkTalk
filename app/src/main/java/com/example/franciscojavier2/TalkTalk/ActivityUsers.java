@@ -92,7 +92,7 @@ public class ActivityUsers extends AppCompatActivity {
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder{  //Creo una clase que herede de RecyclerView.ViewHolder.
                             //Tiene que ser static ya que es una subclase.
-        View mView;   //mView es una vista que he creado ya que quiero q tome el valor de la imagen q pulse para trabajar con ella.
+        View mView;   //view es una vista que he creado ya que quiero q tome el valor de la imagen q pulse para trabajar con ella.
         public UsersViewHolder(View itemView) {
             super(itemView);
             mView=itemView;

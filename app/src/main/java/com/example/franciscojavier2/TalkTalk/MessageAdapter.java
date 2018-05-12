@@ -15,6 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,14 +45,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         public CircleImageView profileImage;
         public TextView displayName;
         public ImageView messageImage;
+        public TextView time_text_layout;
 
         public MessageViewHolder(View view) {
             super(view);
-
             messageText=(TextView)view.findViewById(R.id.message_text_layout);
             profileImage=(CircleImageView) view.findViewById(R.id.message_profile_layout);
             displayName=(TextView)view.findViewById(R.id.name_text_layout);
             messageImage=(ImageView)view.findViewById(R.id.message_image_layout);
+            time_text_layout=(TextView)view.findViewById(R.id.time_text_layout);
         }
     }
 
@@ -95,6 +99,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             viewHolder.messageText.setBackgroundResource(R.drawable.message_text_background_ii);
         }
         viewHolder.messageText.setText(c.getMessage());
+        SimpleDateFormat sfd=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        viewHolder.time_text_layout.setText( sfd.format(new Date(c.getTime())));
+
     }
 
     @Override

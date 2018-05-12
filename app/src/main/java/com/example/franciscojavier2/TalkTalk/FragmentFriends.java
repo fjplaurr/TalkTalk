@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.franciscojavier2.TalkTalk.Model.Friends;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,26 +30,25 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class FragmentFriends extends Fragment {
-    private RecyclerView mFriendList;
-    private View mMainView;
+    private RecyclerView recyclerView;
+    private View vista;
     private DatabaseReference mFriendsDatabase;
     private DatabaseReference mUsersDatabase;
+    private DatabaseReference mMessages;
     private FirebaseAuth mAuth;
     private String mCurrent_user_id;
 
-    public FragmentFriends() {
-        // Required empty public constructor
-    }
+    public FragmentFriends() {}// Required empty public constructor
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mMainView= inflater.inflate(R.layout.fragment_friends, container, false);
+        vista = inflater.inflate(R.layout.fragment_friends, container, false);
 
         //RecyclerView
-        mFriendList=(RecyclerView)mMainView.findViewById(R.id.friends_list);
-        mFriendList.setHasFixedSize(true);
-        mFriendList.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView =(RecyclerView) vista.findViewById(R.id.friends_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //Firebase Database
         mAuth=FirebaseAuth.getInstance();
@@ -59,7 +58,9 @@ public class FragmentFriends extends Fragment {
         mFriendsDatabase.keepSynced(true);
         mUsersDatabase.keepSynced(true);
 
-        return mMainView;
+        mMessages=FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
+
+        return vista;
     }
 
     public void onStart() {
@@ -78,12 +79,12 @@ public class FragmentFriends extends Fragment {
 
                 final String list_user_id=getRef(position).getKey();
 
+                    //Call DatabaseReference to receive data and send it to friendsViewHolder
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         final String userName=dataSnapshot.child("name").getValue().toString();
                         final String userThumb=dataSnapshot.child("thumb_image").getValue().toString();
-
                         if(dataSnapshot.hasChild("online")){  //Le pongo esta condición para evitar que mire
                                         //usuarios que no tienen la clave online en la BD. Lo cierto es que ésto
                                         //nunca debería pasar porque los usuarios al registrarse ya se les asigna
@@ -91,11 +92,9 @@ public class FragmentFriends extends Fragment {
                             String userOnline=dataSnapshot.child("online").getValue().toString();
                             friendsViewHolder.setUserOnline(userOnline);
                         }
-
                         friendsViewHolder.setName(userName);
                         friendsViewHolder.setThumbImage(userThumb,getContext());
-
-                        friendsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                        friendsViewHolder.view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 CharSequence options[]=new CharSequence[]{"Open Profile","Send message"};
@@ -125,52 +124,61 @@ public class FragmentFriends extends Fragment {
                         });
                     }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    @Override public void onCancelled(DatabaseError databaseError) {}
                 });
 
             }
 
         };
 
-        mFriendList.setAdapter(friendsRecyclerViewAdapter);
-
+        recyclerView.setAdapter(friendsRecyclerViewAdapter);
     }
 
     public static class FriendsViewHolder extends RecyclerView.ViewHolder{  //Creo una clase que herede de RecyclerView.ViewHolder.
         //Tiene que ser static ya que es una subclase.
 
-        View mView;   //mView es una vista que he creado ya que quiero q tome el valor de la imagen q pulse para trabajar con ella.
+        View view;   //view es una vista que he creado ya que quiero q tome el valor de la imagen q pulse para trabajar con ella.
 
         public FriendsViewHolder(View itemView) {
             super(itemView);
-            mView=itemView;
+            view =itemView;
         }
 
         public void setDate(String date) {
-            TextView userNameView=(TextView)mView.findViewById(R.id.user_single_status);  //Pongo la fecha en un Textview
+            TextView userNameView=(TextView) view.findViewById(R.id.user_single_status);  //Pongo la fecha en un Textview
                         //que inicialmente estaba creado para el status y lo reciclo.
             userNameView.setText(date);
         }
 
         public void setName(String name){
-            TextView userName=(TextView)mView.findViewById(R.id.user_single_name);
+            TextView userName=(TextView) view.findViewById(R.id.user_single_name);
             userName.setText(name);
         }
 
         public void setThumbImage(String thumb_image, Context ctx){
-            CircleImageView userImageView=(CircleImageView)mView.findViewById(R.id.user_single_image);
-            Picasso.with(ctx).load(thumb_image).placeholder(R.drawable.default_avatar).into(userImageView);
+            CircleImageView userPicture=(CircleImageView) view.findViewById(R.id.user_single_image);
+            Picasso.with(ctx).load(thumb_image).placeholder(R.drawable.default_avatar).into(userPicture);
 
         }
 
         public void setUserOnline(String online_status){
-            ImageView userOnlineView=(ImageView)mView.findViewById(R.id.user_sing_online_icon);
+            ImageView userOnlineView=(ImageView) view.findViewById(R.id.user_sing_online_icon);
             if(online_status.equals("true")){
                 userOnlineView.setVisibility(View.VISIBLE);
             }else{
                 userOnlineView.setVisibility(View.INVISIBLE);
             }
+
+        }
+
+        public void setMessage(String message, Boolean messageReceived){
+            TextView userMessage=(TextView) view.findViewById(R.id.user_message);
+            if(messageReceived){
+                userMessage.setTextColor(Color.RED);
+            }else{
+                userMessage.setTextColor(Color.BLUE);
+            }
+            userMessage.setText(message);
 
         }
 

@@ -25,7 +25,7 @@
         android:layout_below="@+id/profile_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="21dp"
-        android:text="Display Name"
+        android:text="_Display Name"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
@@ -36,30 +36,21 @@
         android:layout_below="@+id/profile_displayName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="Curent User Status"
+        android:text="_Curent User Status"
         android:textColor="@android:color/white"
         android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/profile_totalFriends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_status"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
-        android:text="Total Friends"
-        android:textColor="@android:color/white"
-        android:textSize="12sp" />
+
 
     <Button
         android:id="@+id/profile_send_req_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_totalFriends"
+        android:layout_below="@+id/profile_status"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/colorAccent"
-        android:text="SEND FRIEND REQUEST"
+        android:text="@string/send_friend_request"
         android:textColor="@android:color/white" />
 
     <Button
@@ -70,7 +61,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/colorAccent"
-        android:text="DECLINE FRIEND REQUEST"
+        android:text="@string/decline_friend_request"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

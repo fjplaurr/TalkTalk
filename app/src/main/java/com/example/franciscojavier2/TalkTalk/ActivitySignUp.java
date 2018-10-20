@@ -44,7 +44,7 @@ import java.util.HashMap;
         //Declaración del Toolbar
         mToolbar=(Toolbar)findViewById(R.id.register_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Create account");
+        getSupportActionBar().setTitle(R.string.createAccount);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Instrucción para añadir un botón de atrás en el Toolbar que nos
             //llevará al ActivityStart ya que así se lo he indicado yo en el Manifest al poner que es su parent.
 

@@ -37,7 +37,7 @@ public class ActivityStatus extends AppCompatActivity {
 
         mToolbar=(Toolbar) findViewById(R.id.status_appBar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Account Status");
+        getSupportActionBar().setTitle(R.string.accountStatus);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Recibo el status desde ActivitySettings

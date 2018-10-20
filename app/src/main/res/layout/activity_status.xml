@@ -19,7 +19,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="60dp"
-        android:hint="Your Status">
+        android:hint="@string/your_status">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:layout_below="@+id/status_input"
         android:layout_marginTop="20dp"
         android:background="@color/colorAccent"
-        android:text="SAVE CHANGES"
+        android:text="@string/save_changes"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

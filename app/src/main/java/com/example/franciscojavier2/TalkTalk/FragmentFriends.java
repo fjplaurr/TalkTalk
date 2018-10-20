@@ -171,6 +171,7 @@ public class FragmentFriends extends Fragment {
 
         }
 
+
         public void setMessage(String message, Boolean messageReceived){
             TextView userMessage=(TextView) view.findViewById(R.id.user_message);
             if(messageReceived){

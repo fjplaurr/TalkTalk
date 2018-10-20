@@ -166,8 +166,8 @@ import id.zelory.compressor.Compressor;
              if (resultCode == RESULT_OK) {
                  //ProgressDialog
                  mProgressDialog=new ProgressDialog(ActivitySettings.this);
-                 mProgressDialog.setTitle("Uploading image...");
-                 mProgressDialog.setMessage("Please wait while uploading the image");
+                 mProgressDialog.setTitle(getString(R.string.uploadingImage));
+                 mProgressDialog.setMessage(getString(R.string.waitWhileUploadingImage));
                  mProgressDialog.setCanceledOnTouchOutside(false);//para que el usuario no pueda cancelar el PRogressDialog
                  mProgressDialog.show();
 
@@ -235,11 +235,6 @@ import id.zelory.compressor.Compressor;
      public void onStart() {
          super.onStart();
          mUserDatabase.child("online").setValue(true);
-     }
-     //Código para actualizar la clave online en la BD.
-     protected void onPause() {
-         super.onPause();
-         mUserDatabase.child("online").setValue(ServerValue.TIMESTAMP);
      }
 
 

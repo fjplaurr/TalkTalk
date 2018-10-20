@@ -29,7 +29,7 @@ public class ActivityProfile extends AppCompatActivity {
 
     //Layout
     private ImageView mProfileImage;
-    private TextView mProfileName,mProfileStatus,mProfileFriendsCount;
+    private TextView mProfileName,mProfileStatus;
     private Button mProfileSendReqBtn;
     private Button mDeclineBtn;
 
@@ -72,7 +72,6 @@ public class ActivityProfile extends AppCompatActivity {
         mProfileImage=(ImageView)findViewById(R.id.profile_image);
         mProfileName=(TextView)findViewById(R.id.profile_displayName);
         mProfileStatus=(TextView)findViewById(R.id.profile_status);
-        mProfileFriendsCount=(TextView)findViewById(R.id.profile_totalFriends);
         mProfileSendReqBtn=(Button)findViewById(R.id.profile_send_req_btn);
         mDeclineBtn =(Button)findViewById(R.id.decline_req_btn);
 
@@ -80,8 +79,8 @@ public class ActivityProfile extends AppCompatActivity {
 
         //ProgressDialog
         mProgressDialog=new ProgressDialog(ActivityProfile.this);
-        mProgressDialog.setTitle("Loading User Data");
-        mProgressDialog.setMessage("Please wait while we load the user data.");
+        mProgressDialog.setTitle(getString(R.string.loadingUserData));
+        mProgressDialog.setMessage(getString(R.string.waitWhileLoadingUserData));
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
@@ -287,10 +286,6 @@ public class ActivityProfile extends AppCompatActivity {
         super.onStart();
         mUserRef.child("online").setValue(true);
     }
-    //Código para actualizar la clave online en la BD.
-    protected void onPause() {
-        super.onPause();
-        mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
-    }
+
 
 }

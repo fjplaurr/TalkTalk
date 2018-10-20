@@ -31,7 +31,7 @@ public class ActivityUsers extends AppCompatActivity {
         //Toolbar
         mToolbar=(Toolbar)findViewById(R.id.users_appBar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("All users");
+        getSupportActionBar().setTitle(R.string.allUsers);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Inicialización DatabaseRefence
@@ -85,10 +85,12 @@ public class ActivityUsers extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         mUsersDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("online").setValue(ServerValue.TIMESTAMP);
     }
+
+
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder{  //Creo una clase que herede de RecyclerView.ViewHolder.
                             //Tiene que ser static ya que es una subclase.

@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">TalkTalk</string>
+    <string name="newAccount">¿Necesitas una cuenta? ¡Regístrate!</string>
+    <string name="display_name">Nombre</string>
+    <string name="LogOut">Desconectar</string>
+    <string name="account_settings">Configuración de cuenta</string>
+    <string name="all_users">Todos los usuarios</string>
+    <string name="DefaultStatus">¡Hola a todos! :)</string>
+    <string name="Welcome">¡Bienvenid@ a TalkTalk!</string>
+    <string name="i_already_have_an_account">YA TENGO UNA CUENTA</string>
+    <string name="login_to_your_account">Acceso a tu cuenta</string>
+    <string name="your_email">Tu Email</string>
+    <string name="password">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="your_status">Tu estado</string>
+    <string name="login">Acceder</string>
+    <string name="allUsers">Todos los usuarios</string>
+    <string name="TalkTalk">TalkTalk</string>
+    <string name="createAccount">Crear cuenta</string>
+    <string name="accountStatus">Estado del usuario</string>
+    <string name="create_a_new_account">Crear una nueva cuenta</string>
+    <string name="change_image">CAMBIAR IMAGEN</string>
+    <string name="change_status">CAMBIAR ESTADO</string>
+    <string name="decline_friend_request">RECHAZAR SOLICITUD DE AMISTAD</string>
+    <string name="save_changes">GUARDAR CAMBIOS</string>
+    <string name="send_friend_request">ENVIAR SOLICITUD DE AMISTAD</string>
+    <string name="openProfile">Ver perfil</string>
+    <string name="sendMessage">Enviar mensaje</string>
+    <string name="deleteChat">Borrar chat</string>
+    <string name="uploadingImage">Uploading image...</string>
+    <string name="waitWhileUploadingImage">Please wait while uploading the image</string>
+    <string name="loadingUserData">Loading User Data</string>
+    <string name="waitWhileLoadingUserData">Please wait while we load the user data.</string>
+
+</resources>

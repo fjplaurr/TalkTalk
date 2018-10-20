@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar
         mToolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("TalkTalk");
+        getSupportActionBar().setTitle(R.string.TalkTalk);
 
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser()!=null){
@@ -59,14 +59,6 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();//Para que el user no pueda volver al Main desde el ActivityStart si pulsa el botón atrás.
         }else{
             mUserRef.child("online").setValue("true");
-        }
-    }
-    //Código para actualizar la clave online en la BD.
-    protected void onPause() {
-        super.onPause();
-        FirebaseUser currentUser=mAuth.getCurrentUser();
-        if(currentUser!=null){
-            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
         }
     }
 

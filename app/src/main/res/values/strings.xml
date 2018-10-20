@@ -5,7 +5,31 @@
     <string name="LogOut">Log Out</string>
     <string name="account_settings">Account Settings</string>
     <string name="all_users">All Users</string>
-    <string name="FragmentRandomSentence">Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</string>
-    <string name="DefaultStatus">Hi everyone! Using TalkTalk! :)</string>
+    <string name="DefaultStatus">Hi everyone! :)</string>
     <string name="Welcome">Welcome to TalkTalk!</string>
+    <string name="i_already_have_an_account">I ALREADY HAVE AN ACCOUNT</string>
+    <string name="login_to_your_account">Login to your Account</string>
+    <string name="your_email">Your Email</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="your_status">Your Status</string>
+    <string name="login">Login</string>
+    <string name="allUsers">All users</string>
+    <string name="TalkTalk">TalkTalk</string>
+    <string name="createAccount">Create account</string>
+    <string name="accountStatus">User status</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="change_image">CHANGE IMAGE</string>
+    <string name="change_status">CHANGE STATUS</string>
+    <string name="decline_friend_request">DECLINE FRIEND REQUEST</string>
+    <string name="save_changes">SAVE CHANGES</string>
+    <string name="send_friend_request">SEND FRIEND REQUEST</string>
+    <string name="openProfile">Open Profile</string>
+    <string name="sendMessage">Send message</string>
+    <string name="deleteChat">Delete chat</string>
+    <string name="uploadingImage">Uploading image...</string>
+    <string name="waitWhileUploadingImage">Please wait while uploading the image</string>
+    <string name="loadingUserData">Loading User Data</string>
+    <string name="waitWhileLoadingUserData">Please wait while we load the user data.</string>
+
 </resources>

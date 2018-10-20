@@ -82,10 +82,11 @@ public class FragmentConversation extends Fragment {
                                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
                                     String lastMessage=postSnapshot.child("message").getValue().toString();
                                     String from=postSnapshot.child("from").getValue().toString();
+                                    Boolean seen=(Boolean)postSnapshot.child("seen").getValue();
                                     if(from.equals(list_user_id)) {
-                                        conversationViewholder.setMessage(lastMessage,true);
+                                        conversationViewholder.setMessage(lastMessage,true,seen);
                                     }else{
-                                        conversationViewholder.setMessage(lastMessage,false);
+                                        conversationViewholder.setMessage(lastMessage,false,seen);
                                     }
                                 }
                             }
@@ -113,7 +114,18 @@ public class FragmentConversation extends Fragment {
                                 conversationViewholder.view.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        CharSequence options[]=new CharSequence[]{"Open Profile","Send message"};
+                                                    Intent chatIntent=new Intent(getContext(),ActivityConversation.class);
+                                                    chatIntent.putExtra("user_id",list_user_id);
+                                                    chatIntent.putExtra("user_name",userName);
+                                                    chatIntent.putExtra("user_image",userThumb);
+                                                    startActivity(chatIntent);
+                                    }
+                                });
+                                conversationViewholder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        CharSequence options[]=new CharSequence[]{getString(R.string.openProfile),
+                                                getString(R.string.sendMessage),getString(R.string.deleteChat)};
                                         final AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
                                         builder.setTitle("Select Options");
                                         builder.setItems(options,   new DialogInterface.OnClickListener() {
@@ -133,9 +145,13 @@ public class FragmentConversation extends Fragment {
 
                                                     startActivity(chatIntent);
                                                 }
+                                                if(i==2){
+                                                    DeleteChat();
+                                                }
                                             }
                                         });
                                         builder.show();
+                                        return false;
                                     }
                                 });
                             }
@@ -149,6 +165,25 @@ public class FragmentConversation extends Fragment {
 
         recyclerView.setAdapter(conversationRecyclerViewAdapter);
 
+    }
+
+    public void DeleteChat() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setTitle("Delete chat");
+        alert.setMessage("Are you sure you want to delete this chat?");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
     }
 
     public static class ConversationViewholder extends RecyclerView.ViewHolder{  //Creo una clase que herede de RecyclerView.ViewHolder.
@@ -183,12 +218,16 @@ public class FragmentConversation extends Fragment {
 
         }
 
-        public void setMessage(String message, Boolean messageReceived){
+        public void setMessage(String message, Boolean messageReceived,Boolean seen){
             TextView userMessage=(TextView) view.findViewById(R.id.user_message);
             if(messageReceived){
-                userMessage.setTextColor(Color.RED);
+                //userMessage.setTextColor(Color.RED);
             }else{
-                userMessage.setTextColor(Color.BLUE);
+                if(seen){
+                    userMessage.setText("\u2713"+"\u2713"+" "+message);
+                }else{
+                    userMessage.setText("\u2713"+" "+message);
+                }
             }
             userMessage.setText(message);
 

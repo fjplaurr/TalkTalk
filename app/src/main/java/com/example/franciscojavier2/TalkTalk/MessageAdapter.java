@@ -43,7 +43,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public class MessageViewHolder extends RecyclerView.ViewHolder{
         public TextView messageText;
         public CircleImageView profileImage;
-        public TextView displayName;
         public ImageView messageImage;
         public TextView time_text_layout;
 
@@ -51,7 +50,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             super(view);
             messageText=(TextView)view.findViewById(R.id.message_text_layout);
             profileImage=(CircleImageView) view.findViewById(R.id.message_profile_layout);
-            displayName=(TextView)view.findViewById(R.id.name_text_layout);
             messageImage=(ImageView)view.findViewById(R.id.message_image_layout);
             time_text_layout=(TextView)view.findViewById(R.id.time_text_layout);
         }
@@ -75,7 +73,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 String image= dataSnapshot.child("image").getValue().toString();
                 String name=dataSnapshot.child("name").getValue().toString();
 
-                viewHolder.displayName.setText(name);
                 Picasso.with(viewHolder.profileImage.getContext()).load(image).placeholder(R.drawable.default_avatar).
                         into(viewHolder.profileImage);
             }
@@ -94,12 +91,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if(from_user.equals(current_user_id)){
             viewHolder.messageText.setTextColor(Color.WHITE);
             viewHolder.messageText.setBackgroundResource(R.drawable.message_text_background);
+
         }else{
             viewHolder.messageText.setTextColor(Color.BLACK);
             viewHolder.messageText.setBackgroundResource(R.drawable.message_text_background_ii);
         }
         viewHolder.messageText.setText(c.getMessage());
-        SimpleDateFormat sfd=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat sfd=new SimpleDateFormat("dd/MMMM HH:mm");
         viewHolder.time_text_layout.setText( sfd.format(new Date(c.getTime())));
 
     }

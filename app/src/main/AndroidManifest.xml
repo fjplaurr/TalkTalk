@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.franciscojavier2.TalkTalk">
 
-    <!-- PERMISOS PARA LEER Y ESCRIBIR DATOS Y PODER UTILIZAR LA LIBRERÍA AÑADIDA EN LA APP DE RECORTAR IMÁGENES -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="com.example.franciscojavier2.TalkTalk.FirstClass"
+        android:name=".FirstClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,22 +21,22 @@
             de la aplicación. Lo que estoy haciendo es declarar la clFirstClassChat como la clase de la App
         -->
 
-        <activity android:name="com.example.franciscojavier2.TalkTalk.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivityStart" />
+        <activity android:name=".ActivityStart" />
         <activity
-            android:name="com.example.franciscojavier2.TalkTalk.ActivitySignUp"
-            android:parentActivityName="com.example.franciscojavier2.TalkTalk.ActivityStart" />
-        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivityLogIn" />
-        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivitySettings" />
+            android:name=".ActivitySignUp"
+            android:parentActivityName=".ActivityStart" />
+        <activity android:name=".ActivityLogIn" />
+        <activity android:name=".ActivitySettings" />
         <activity
-            android:name="com.example.franciscojavier2.TalkTalk.ActivityStatus"
-            android:parentActivityName="com.example.franciscojavier2.TalkTalk.ActivitySettings" />
+            android:name=".ActivityStatus"
+            android:parentActivityName=".ActivitySettings" />
         <!--
           Poner un parentActivity provoca que al pulsar el botón
           de atrás, regresemos a la actividad padre.
@@ -46,9 +46,9 @@
             android:theme="@style/Base.Theme.AppCompat" /> <!-- Necesario para usar la librería de recortar imágenes -->
 
         <activity
-            android:name="com.example.franciscojavier2.TalkTalk.ActivityUsers"
-            android:parentActivityName="com.example.franciscojavier2.TalkTalk.MainActivity" />
-        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivityProfile">
+            android:name=".ActivityUsers"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ActivityProfile">
             <intent-filter>
                 <action android:name="TalkTalk_notify" />
                 <!--
@@ -60,15 +60,19 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.example.franciscojavier2.TalkTalk.FirebaseMessagingService"> <!-- Servicio necesario para usar la librería Firebase Cloud Messaging -->
+        <service android:name=".FirebaseMessagingService"> <!-- Servicio necesario para usar la librería Firebase Cloud Messaging -->
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name="com.example.franciscojavier2.TalkTalk.ActivityConversation"
-            android:parentActivityName="com.example.franciscojavier2.TalkTalk.MainActivity">
-        </activity>
+        <activity
+            android:name=".ActivityConversation"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".ActivityAddContacts"
+            android:label="@string/title_activity_add_contacts"
+            android:theme="@style/MyTheme"></activity>
     </application>
 
 </manifest>

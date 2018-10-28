@@ -34,7 +34,6 @@ public class FragmentFriends extends Fragment {
     private View vista;
     private DatabaseReference mFriendsDatabase;
     private DatabaseReference mUsersDatabase;
-    private DatabaseReference mMessages;
     private FirebaseAuth mAuth;
     private String mCurrent_user_id;
 
@@ -57,8 +56,6 @@ public class FragmentFriends extends Fragment {
         mUsersDatabase=FirebaseDatabase.getInstance().getReference().child("Users");
         mFriendsDatabase.keepSynced(true);
         mUsersDatabase.keepSynced(true);
-
-        mMessages=FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
 
         return vista;
     }

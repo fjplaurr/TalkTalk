@@ -9,6 +9,7 @@ public class Users {
     public String image;
     public String status;
     public String thumb_image;
+    public String phone;
 
     public Users(){}
 
@@ -16,6 +17,15 @@ public class Users {
         this.name = name;
         this.image = image;
         this.status = status;
+    }
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getThumb_image() {
@@ -49,4 +59,6 @@ public class Users {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 }

@@ -18,7 +18,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.text.DateFormat;
@@ -177,7 +176,7 @@ public class ActivityProfile extends AppCompatActivity {
                                                 mProfileSendReqBtn.setEnabled(true);
                                                 mCurrent_state="req_sent";
                                                 mProfileSendReqBtn.setText("Cancel Friend Request"); //El mismo botón se va a utilizar para cancelar la solicitud de amistad
-                                                Toast.makeText(ActivityProfile.this,"Sending request succesfully completed", Toast.LENGTH_SHORT).show();
+
                                             }
                                         });
                                     }

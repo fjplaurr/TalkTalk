@@ -33,7 +33,6 @@ public class ActivityAddContacts extends AppCompatActivity {
     private String mCurrent_user_id;
     private FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
